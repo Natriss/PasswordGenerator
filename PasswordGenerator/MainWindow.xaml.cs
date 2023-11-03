@@ -16,6 +16,7 @@ namespace PasswordGenerator
 		public MainWindow()
 		{
 			this.InitializeComponent();
+			rootContent.DataContext = new MainViewModel();
 			SetTitleBar(appTitleBar);
 			rootFrame.Navigate(typeof(HomePage));
 		}

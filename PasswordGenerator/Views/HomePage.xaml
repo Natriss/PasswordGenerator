@@ -6,9 +6,47 @@
     xmlns:local="using:PasswordGenerator.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Converters="using:PasswordGenerator.Converters"
     mc:Ignorable="d">
+    <Page.Resources>
+        <Converters:StringToBoolConverter x:Key="StringToBoolConverter"/>
+    </Page.Resources>
 
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1" MaxWidth="320" ColumnSpacing="8" RowSpacing="8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Row="0" Grid.Column="0" Text="{x:Bind ViewModel.Password, Mode=OneWay}" IsReadOnly="True"/>
+            <Button Grid.Row="0" Grid.Column="1" Command="{x:Bind ViewModel.CopyToClipboardCommand}" IsEnabled="{x:Bind ViewModel.Password, Mode=OneWay, Converter={StaticResource StringToBoolConverter}}" x:Uid="CopyToClipboard" Padding="8">
+                <Button.Content>
+                    <FontIcon Glyph="&#xE8C8;" />
+                </Button.Content>
+            </Button>
+            
+            <Button Grid.Row="1" Grid.Column="0" Command="{x:Bind ViewModel.GeneratePasswordCommand}">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <FontIcon Glyph="&#xE72C;"/>
+                        <TextBlock x:Uid="GeneratePassword"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Grid.Row="1" Grid.Column="1" Command="{x:Bind ViewModel.OpenSettingsCommand}" x:Uid="Settings" Padding="8">
+                <Button.Content>
+                    <FontIcon Glyph="&#xE713;" />
+                </Button.Content>
+            </Button>
+        </Grid>
     </Grid>
 </Page>
