@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PasswordGenerator.Maui.Views.MainPage"
+             xmlns:viewmodels="clr-namespace:PasswordGenerator.Maui.ViewModels"
+             xmlns:converters="clr-namespace:PasswordGenerator.Maui.Converters"
+             xmlns:strings="clr-namespace:PasswordGenerator.Maui.Localizations">
+    <ContentPage.BindingContext>
+        <viewmodels:MainViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1" MaximumWidthRequest="320" ColumnSpacing="8" RowSpacing="8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Entry Grid.Row="0" Grid.Column="0" Text="{Binding Password, Mode=OneWay}" IsReadOnly="True"/>
+            <Button Grid.Row="0" Grid.Column="1" IsEnabled="{Binding Password, Mode=OneWay, Converter={StaticResource StringToBoolConverter}}" ToolTipProperties.Text="{x:Static strings:AppResource.CopyToClipboard}" FontFamily="Segoe Icons" Text="&#xE8C8;" Command="{Binding CopyToClipboardCommand}" />
+
+            <Button Grid.Row="1" Grid.Column="0" Text="{x:Static strings:AppResource.GeneratePassword}" Command="{Binding GeneratePasswordCommand}" />
+            <Button Grid.Row="1" Grid.Column="1" ToolTipProperties.Text="{x:Static strings:AppResource.Settings}" FontFamily="Segoe Icons" Text="&#xE713;" Command="{Binding OpenSettingsCommand}" />
+        </Grid>
+    </Grid>
+</ContentPage>

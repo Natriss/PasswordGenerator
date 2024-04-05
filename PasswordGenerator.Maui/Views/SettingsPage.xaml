@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PasswordGenerator.Maui.Views.SettingsPage"
+             xmlns:viewmodels="clr-namespace:PasswordGenerator.Maui.ViewModels"
+             xmlns:strings="clr-namespace:PasswordGenerator.Maui.Localizations"
+             Title="{x:Static strings:AppResource.SettingsTitle}"
+             Shell.ForegroundColor="{AppThemeBinding Dark=Default, Light=Black}">
+    <ContentPage.BindingContext>
+        <viewmodels:SettingsViewModel />
+    </ContentPage.BindingContext>
+
+    <VerticalStackLayout Spacing="4" MaximumWidthRequest="320" VerticalOptions="Center">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Text="{x:Static strings:AppResource.PasswordLength}" />
+            <Label Grid.Column="1" Text="{Binding Value, Mode=OneWay}" />
+        </Grid>
+        <Slider Minimum="8" Maximum="40" Value="{Binding Value, Mode=TwoWay}"/>
+        <Label Text="{x:Static strings:AppResource.StrengthOptions}" Style="{StaticResource SubHeadline}" />
+        <HorizontalStackLayout>
+            <CheckBox IsChecked="True" IsEnabled="False" Margin="8,0,0,0"/>
+            <Label Text="{x:Static strings:AppResource.SmallLetters}" VerticalTextAlignment="Center" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <CheckBox x:Uid="CapitalLetters" IsChecked="{Binding CapitalLettersBool, Mode=TwoWay}" Margin="8,0,0,0"/>
+            <Label Text="{x:Static strings:AppResource.CapitalLetters}" VerticalTextAlignment="Center" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <CheckBox x:Uid="Numbers" IsChecked="{Binding NumbersBool, Mode=TwoWay}" Margin="8,0,0,0"/>
+            <Label Text="{x:Static strings:AppResource.Numbers}" VerticalTextAlignment="Center" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <CheckBox x:Uid="Symbols" IsChecked="{Binding SymbolsBool, Mode=TwoWay}" Margin="8,0,0,0"/>
+            <Label Text="{x:Static strings:AppResource.Symbols}" VerticalTextAlignment="Center" />
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>
